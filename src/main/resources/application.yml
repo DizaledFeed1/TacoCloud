@@ -1,0 +1,36 @@
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  security:
+    oauth2:
+      client:
+        registration:
+          vk:
+            clientId: 52586325
+            clientSecret: HPoUAuI5mWttqn6OeB6t
+            authorization-grant-type: authorization_code
+            scope: email
+            redirectUri: "{baseUrl}/login/oauth2/code/{registrationId}"
+        provider:
+          vk:
+            authorization-uri: https://oauth.vk.com/authorize
+            token-uri: https://oauth.vk.com/access_token
+            user-info-uri: https://api.vk.com/method/users.get?fields=photo_200&access_token={token}&v=5.131
+            user-name-attribute: id
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  sql:
+    init:
+      mode: always
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+logging:
+  level:
+    org.springframework.security: DEBUG
