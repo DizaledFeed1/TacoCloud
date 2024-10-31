@@ -12,7 +12,8 @@ spring:
             clientSecret: HPoUAuI5mWttqn6OeB6t
             authorization-grant-type: authorization_code
             scope: email
-            redirectUri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            redirectUri: "https://d492-95-104-189-149.ngrok-free.app/login/oauth2/code/vk"
+
         provider:
           vk:
             authorization-uri: https://oauth.vk.com/authorize

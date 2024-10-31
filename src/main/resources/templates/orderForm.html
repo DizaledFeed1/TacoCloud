@@ -6,6 +6,7 @@
     <link rel="stylesheet" th:href="@{/styles.css}" />
 </head>
 <body>
+<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
 <form method="POST" th:action="@{/orders}" th:object="${tacoOrder}">
     <h1>Order your taco creations!</h1>
     <img th:src="@{/images/TacoCloud.png}"/>

@@ -5,6 +5,7 @@
     <title>Taco Cloud</title>
 </head>
 <body>
+<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
 <h1>Register</h1>
 <img th:src="@{/images/TacoCloud.png}"/>
 <form method="POST" th:action="@{/register}" id="registerForm">
