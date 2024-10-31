@@ -31,6 +31,12 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+server:
+  port: 8443
+  ssl:
+    key-store: C:\Users\Dizaled/mykeys.jks
+    key-store-password: Porfik 10
+    key-password: Porfik 10
 
 logging:
   level:
