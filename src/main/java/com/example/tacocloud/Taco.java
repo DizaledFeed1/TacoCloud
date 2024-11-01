@@ -1,5 +1,6 @@
 package com.example.tacocloud;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -24,6 +25,7 @@ public class Taco {
 
     @ManyToOne
     @JoinColumn(name = "taco_order", nullable = false) // Указываем, что это поле не может быть null
+    @JsonBackReference
     private TacoOrder tacoOrder;
 
     @Size(min = 1, message = "You must choose at least 1 ingredient")

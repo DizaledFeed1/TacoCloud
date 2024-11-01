@@ -1,5 +1,6 @@
 package com.example.tacocloud;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
@@ -52,6 +53,7 @@ public class TacoOrder implements Serializable {
     private String ccCVV;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Taco> tacos = new ArrayList<>();
 
     @ManyToOne

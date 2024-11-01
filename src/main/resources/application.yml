@@ -39,5 +39,31 @@ server:
     key-password: Porfik 10
 
 logging:
+  file:
+    path: /var/logs/
+    file: TacoCloud.log
   level:
     org.springframework.security: DEBUG
+taco:
+  orders:
+    page-size: 10
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  jpa:
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: jdbc:mysql://localhost/taco_cloud
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Porfik 10
+  sql:
+    init:
+      mode: never
+  logging:
+    level:
+      tacos: WARN

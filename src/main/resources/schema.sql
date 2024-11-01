@@ -1,8 +1,12 @@
--- Удаление существующих таблиц
-drop table if exists Ingredient_Ref;
-drop table if exists Taco_Order;
-drop table if exists Taco;
-drop table if exists Ingredient;
+-- SET FOREIGN_KEY_CHECKS = 0;
+--
+-- DROP TABLE IF EXISTS taco_ingredients;
+-- DROP TABLE IF EXISTS Ingredient;
+-- DROP TABLE IF EXISTS Taco_Order;
+-- DROP TABLE IF EXISTS Taco;
+--
+-- SET FOREIGN_KEY_CHECKS = 1;
+
 
 -- Создание таблицы Taco_Order
 create table if not exists Taco_Order (
