@@ -22,7 +22,7 @@ public class TacoController {
     @GetMapping(params="recent")
     public Iterable<Taco> recentTacos() {
         PageRequest page = PageRequest.of(
-                0, 1, Sort.by("createdAt").descending());
+                0, 12, Sort.by("createdAt").descending());
         return tacoRepo.findAll(page).getContent();
     }
     @GetMapping("/{id}")
@@ -32,5 +32,10 @@ public class TacoController {
             return new ResponseEntity<>(optTaco.get(), HttpStatus.OK);
         }
         return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+    }
+    @PostMapping(consumes="application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Taco postTaco(@RequestBody Taco taco) {
+        return tacoRepo.save(taco);
     }
 }
