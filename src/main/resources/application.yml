@@ -67,3 +67,9 @@ spring:
   logging:
     level:
       tacos: WARN
+  data:
+    rest:
+      base-path: /data-api
+  server:
+    servlet:
+      context-path: /data-api
