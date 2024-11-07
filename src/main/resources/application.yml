@@ -53,6 +53,11 @@ spring:
   config:
     activate:
       on-profile: prod
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:9000/oauth2/jwks
   jpa:
     hibernate:
       ddl-auto: none

@@ -4,6 +4,8 @@ import com.example.tacocloud.User;
 import com.example.tacocloud.data.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -39,7 +41,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/design", "/orders").hasRole("USER") // Защищенные маршруты
                         .requestMatchers("/**", "/login", "/register", "/h2-console/**").permitAll()
-                        .anyRequest().authenticated() // Разрешить доступ к H2-консоли
+                        .requestMatchers(HttpMethod.POST, "/api/ingredients").hasAuthority("SCOPE_writeIngredients") // Защита POST-запросов
+                        .requestMatchers(HttpMethod.DELETE, "/api/ingredients").hasAuthority("SCOPE_deleteIngredients") // Защита DELETE-запросов
+                        .requestMatchers(HttpMethod.GET, "/api/orders").hasAuthority("SCOPE_readOrders")
+                        .anyRequest().authenticated() // Общая настройка авторизации
+                )
+                .oauth2ResourceServer(oauth2 -> oauth2
+                        .jwt(Customizer.withDefaults())
                 )
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers("/h2-console/**") // Исключить CSRF для H2-консоли
@@ -65,6 +73,7 @@ public class SecurityConfig {
                 )
                 .build();
     }
+
 }
 
 
