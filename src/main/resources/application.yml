@@ -50,11 +50,26 @@ taco:
 
 ---
 spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
   config:
     activate:
       on-profile: prod
   security:
     oauth2:
+      client:
+        registration:
+          taco-admin-client:
+            provider: tacocloud
+            client-id: taco-admin-client
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://127.0.0.1:9090/login/oauth2/code/{registrationId}"
+            scope: writeIngredients,deleteIngredients,openid
+        provider:
+          tacocloud:
+            issuer-uri: http://localhost:9000
+            jwk-set-uri: http://localhost:9000/oauth2/jwks
       resourceserver:
         jwt:
           jwk-set-uri: http://localhost:9000/oauth2/jwks
@@ -78,3 +93,4 @@ spring:
   server:
     servlet:
       context-path: /data-api
+

@@ -14,6 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 
 @Configuration
 @EnableWebSecurity
@@ -47,7 +49,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated() // Общая настройка авторизации
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2
-                        .jwt(Customizer.withDefaults())
+                        .jwt(withDefaults())
                 )
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers("/h2-console/**") // Исключить CSRF для H2-консоли
@@ -72,6 +74,19 @@ public class SecurityConfig {
                         .deleteCookies("JSESSIONID")
                 )
                 .build();
+    }
+    @Bean
+    SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws
+            Exception {
+        http
+                .authorizeRequests(
+                        authorizeRequests -> authorizeRequests.anyRequest().authenticated()
+                )
+                .oauth2Login(
+                        oauth2Login ->
+                                oauth2Login.loginPage("/oauth2/authorization/taco-admin-client"))
+                .oauth2Client(withDefaults());
+        return http.build();
     }
 
 }
