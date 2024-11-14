@@ -50,12 +50,14 @@ taco:
 
 ---
 spring:
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
   config:
     activate:
       on-profile: prod
   security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:9000/oauth2/jwks
   jpa:
     hibernate:
       ddl-auto: none
@@ -70,5 +72,9 @@ spring:
   logging:
     level:
       tacos: WARN
-
-
+  data:
+    rest:
+      base-path: /data-api
+  server:
+    servlet:
+      context-path: /data-api
