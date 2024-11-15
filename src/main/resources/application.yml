@@ -32,24 +32,31 @@ spring:
     hibernate:
       ddl-auto: update
 server:
-  port: 8443
-  ssl:
-    key-store: C:\Users\Dizaled/mykeys.jks
-    key-store-password: Porfik 10
-    key-password: Porfik 10
+  port: 8080
+#  ssl:
+#    key-store: C:\Users\Dizaled/mykeys.jks
+#    key-store-password: Porfik 10
+#    key-password: Porfik 10
 
 logging:
   file:
     path: /var/logs/
     file: TacoCloud.log
-  level:
-    org.springframework.security: DEBUG
+#  level:
+#    org.springframework.security: DEBUG
+#    org.springframework.jms: DEBUG
+#    org.springframework: DEBUG
 taco:
   orders:
     page-size: 10
 
 ---
 spring:
+  activemq:
+    broker-url: tcp://localhost:61616      # Указываем брокер на локальной машине
+    user: diz                              # Логин
+    password: "Porfik 10"                  # Пароль (внимание на пробелы в пароле)
+    destination: taco.queue
   config:
     activate:
       on-profile: prod

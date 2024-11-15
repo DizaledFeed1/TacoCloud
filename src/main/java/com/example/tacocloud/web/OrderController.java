@@ -4,11 +4,13 @@ import com.example.tacocloud.Taco;
 import com.example.tacocloud.TacoOrder;
 import com.example.tacocloud.User;
 import com.example.tacocloud.data.OrderRepository;
+import com.example.tacocloud.messaging.OrderMessagingService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,11 +25,13 @@ import org.springframework.web.bind.support.SessionStatus;
 public class OrderController {
     private OrderRepository orderRepo;
     private OrderProps props;
+    private final OrderMessagingService orderMessagingService;
 
-    public OrderController(OrderRepository orderRepo, OrderProps props) {
+    public OrderController(OrderRepository orderRepo, OrderProps props, OrderMessagingService orderMessagingService) {
         this.orderRepo = orderRepo;
         this.props = props;
-    }
+
+        this.orderMessagingService = orderMessagingService;}
 
     @GetMapping("/current")
     public String orderForm() {
@@ -61,6 +65,12 @@ public class OrderController {
         orderRepo.save(order);
         sessionStatus.setComplete();
         return "redirect:/";
+    }
+
+    @PostMapping("/send")
+    public ResponseEntity<?> sendOrder(@RequestBody TacoOrder order) {
+        orderMessagingService.sendOrder(order);
+        return ResponseEntity.ok("Order sent");
     }
 
 }

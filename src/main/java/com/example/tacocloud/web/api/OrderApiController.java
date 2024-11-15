@@ -26,6 +26,7 @@
 //    public TacoOrder postOrder(@RequestBody TacoOrder order) {
 //        // Отправляем заказ через очередь сообщений
 //        messageService.sendOrder(order);
+//        System.out.println("-----------------------------------------------------");
 //        // Сохраняем заказ в репозитории
 //        return repo.save(order);
 //    }
