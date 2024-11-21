@@ -49,8 +49,10 @@ public class SecurityConfig {
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(Customizer.withDefaults())
                 )
+
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers("/h2-console/**") // Исключить CSRF для H2-консоли
+                        .disable()
                 )
                 .headers(headers -> headers
                         .frameOptions(frameOptions -> frameOptions.sameOrigin()) // Разрешить использование фреймов только с того же источника

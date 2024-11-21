@@ -42,8 +42,8 @@ logging:
   file:
     path: /var/logs/
     file: TacoCloud.log
-#  level:
-#    org.springframework.security: DEBUG
+  level:
+    org.springframework.security: DEBUG
 #    org.springframework.jms: DEBUG
 #    org.springframework: DEBUG
 taco:

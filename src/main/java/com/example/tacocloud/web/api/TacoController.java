@@ -29,6 +29,10 @@ public class TacoController {
                 0, 12, Sort.by("createdAt").descending());
         return tacoRepo.findAll(page).getContent();
     }
+    @GetMapping
+    public Iterable<Taco> allTacos() {
+        return tacoRepo.findAll();
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Object> tacoById(@PathVariable("id") Long id) {
         Optional<Taco> optTaco = tacoRepo.findById(id);
