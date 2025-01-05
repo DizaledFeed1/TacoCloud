@@ -72,5 +72,4 @@ public class OrderController {
         orderMessagingService.sendOrder(order);
         return ResponseEntity.ok("Order sent");
     }
-
 }

@@ -25,7 +25,6 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService(UserRepository userRepo) {
-        System.out.println("go");
         return username -> {
             User user = userRepo.findByUsername(username);
             if (user != null) {
@@ -39,7 +38,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/design", "/orders").hasRole("USER") // Защищенные маршруты
+                        .requestMatchers("/orders/send").permitAll()
+                        .requestMatchers("/design").hasRole("USER") // Защищенные маршруты
                         .requestMatchers("/**", "/login", "/register", "/h2-console/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/ingredients").hasAuthority("SCOPE_writeIngredients") // Защита POST-запросов
                         .requestMatchers(HttpMethod.DELETE, "/api/ingredients").hasAuthority("SCOPE_deleteIngredients") // Защита DELETE-запросов
@@ -52,7 +52,7 @@ public class SecurityConfig {
 
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers("/h2-console/**") // Исключить CSRF для H2-консоли
-                        .disable()
+                        .ignoringRequestMatchers("/orders/send") // Отключить CSRF для пути /orders/send
                 )
                 .headers(headers -> headers
                         .frameOptions(frameOptions -> frameOptions.sameOrigin()) // Разрешить использование фреймов только с того же источника

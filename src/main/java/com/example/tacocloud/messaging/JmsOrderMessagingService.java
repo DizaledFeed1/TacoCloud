@@ -19,19 +19,19 @@ public class JmsOrderMessagingService implements OrderMessagingService {
         this.jms = jms;
     }
 
-    @Override
-    public void sendOrder(TacoOrder order) {
-        jms.convertAndSend("taco.queue", order);
-    }
+//    @Override
 //    public void sendOrder(TacoOrder order) {
-//        try {
-//            // Пробуем отправить сообщение в очередь
-//            jms.convertAndSend("taco.queue", "Test Message");
-//            System.out.println("Сообщение успешно отправлено!");
-//        } catch (Exception e) {
-//            // Логируем ошибку, если не удается подключиться
-//            System.err.println("Ошибка при подключении к брокеру: " + e.getMessage());
-//            e.printStackTrace();
-//        }
+//        jms.convertAndSend("taco.queue", order);
 //    }
+    public void sendOrder(TacoOrder order) {
+        try {
+            // Пробуем отправить сообщение в очередь
+            jms.convertAndSend("taco.queue", "Test Message");
+            System.out.println("Сообщение успешно отправлено!");
+        } catch (Exception e) {
+            // Логируем ошибку, если не удается подключиться
+            System.err.println("Ошибка при подключении к брокеру: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 }
