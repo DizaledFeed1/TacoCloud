@@ -1,9 +1,6 @@
 spring:
-  activemq:
-    broker-url: tcp://localhost:61616      # Указываем брокер на локальной машине
-    user: diz                              # Логин
-    password: "Porfik 10"                  # Пароль (внимание на пробелы в пароле)
-    destination: taco.queue
+  profiles:
+    active: prod
   h2:
     console:
       enabled: true
@@ -57,11 +54,11 @@ taco:
 
 ---
 spring:
-  activemq:
-    broker-url: tcp://localhost:61616      # Указываем брокер на локальной машине
-    user: diz                              # Логин
-    password: "Porfik 10"                  # Пароль (внимание на пробелы в пароле)
-    destination: taco.queue
+  rabbitmq:
+    host: localhost        # Указание на локальную машину
+    port: 5672            # Порт для AMQP, который слушает RabbitMQ
+    username: guest        # Логин
+    password: guest        # Пароль
   config:
     activate:
       on-profile: prod

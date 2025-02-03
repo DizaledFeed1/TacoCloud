@@ -34,7 +34,7 @@ public class OrderApiController {
     @ResponseStatus(HttpStatus.CREATED) // Статус ответа 201 - Created
     public TacoOrder postOrder(@RequestBody TacoOrder order) {
         // Отправляем заказ через очередь сообщений
-        messageService.sendOrder(order);
+        messageService. sendOrder(order);
         // Сохраняем заказ в репозитории
         return repo.save(order);
     }
