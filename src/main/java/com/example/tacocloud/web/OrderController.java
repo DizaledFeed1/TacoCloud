@@ -7,7 +7,6 @@ import com.example.tacocloud.data.OrderRepository;
 import com.example.tacocloud.messaging.OrderMessagingService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;

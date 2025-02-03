@@ -1,8 +1,8 @@
 package com.example.tacocloud.web.api;
 
 import com.example.tacocloud.TacoOrder;
-import com.example.tacocloud.messaging.OrderMessagingService;
 import com.example.tacocloud.data.OrderRepository;
+import com.example.tacocloud.messaging.OrderMessagingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +34,7 @@ public class OrderApiController {
     @ResponseStatus(HttpStatus.CREATED) // Статус ответа 201 - Created
     public TacoOrder postOrder(@RequestBody TacoOrder order) {
         // Отправляем заказ через очередь сообщений
-        messageService. sendOrder(order);
+        messageService.sendOrder(order);
         // Сохраняем заказ в репозитории
         return repo.save(order);
     }

@@ -1,4 +1,9 @@
 spring:
+  rabbitmq:
+    host: localhost        # Указание на локальную машину
+    port: 5672            # Порт для AMQP, который слушает RabbitMQ
+    username: guest        # Логин
+    password: guest        # Пароль
   profiles:
     active: prod
   h2:
@@ -45,8 +50,8 @@ logging:
     path: /var/logs/
     file: TacoCloud.log
   level:
-    org.springframework.security: DEBUG
-    org.springframework.jms: DEBUG
+    org.springframework.amqp: DEBUG
+#    org.springframework.security: DEBUG
 #    org.springframework: DEBUG
 taco:
   orders:
@@ -54,14 +59,15 @@ taco:
 
 ---
 spring:
+  config:
+    activate:
+      on-profile: prod
   rabbitmq:
     host: localhost        # Указание на локальную машину
     port: 5672            # Порт для AMQP, который слушает RabbitMQ
     username: guest        # Логин
     password: guest        # Пароль
-  config:
-    activate:
-      on-profile: prod
+
   security:
     oauth2:
       resourceserver:
@@ -80,7 +86,9 @@ spring:
       mode: never
   logging:
     level:
-      tacos: WARN
+#      tacos: WARN
+      org.springframework.amqp: DEBUG
+      org.springframework.jms: DEBUG
   data:
     rest:
       base-path: /data-api
