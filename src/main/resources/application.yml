@@ -1,10 +1,12 @@
 spring:
   profiles:
-    active: prod
+    active: default
+
   h2:
     console:
       enabled: true
       path: /h2-console
+
   security:
     oauth2:
       client:
@@ -15,6 +17,7 @@ spring:
             authorization-grant-type: authorization_code
             scope: email
             redirectUri: "https://d492-95-104-189-149.ngrok-free.app/login/oauth2/code/vk"
+            provider: vk  # Добавлено
 
         provider:
           vk:
@@ -22,17 +25,39 @@ spring:
             token-uri: https://oauth.vk.com/access_token
             user-info-uri: https://api.vk.com/method/users.get?fields=photo_200&access_token={token}&v=5.131
             user-name-attribute: id
+
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:9000/oauth2/jwks
+
   datasource:
-    url: jdbc:h2:mem:testdb
-    driverClassName: org.h2.Driver
-    username: sa
-    password:
+    url: jdbc:mysql://localhost/taco_cloud
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Porfik 10
+
   sql:
     init:
-      mode: always
+      mode: never
+
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
+
+  rabbitmq:
+    template:
+      receive-timeout: 30000
+    host: localhost
+    port: 5672
+#    username: guest
+#    password: guest
+  data:
+    rest:
+      base-path: /data-api
+
+  server:
+    servlet:
+      context-path: /data-api
 
 logging:
   file:
@@ -40,47 +65,8 @@ logging:
     file: TacoCloud.log
   level:
     org.springframework.amqp: DEBUG
-#    org.springframework.security: DEBUG
-#    org.springframework: DEBUG
+    com.rabbitmq: DEBUG
+
 taco:
   orders:
     page-size: 10
-
----
-spring:
-  config:
-    activate:
-      on-profile: prod
-  rabbitmq:
-    host: localhost        # Указание на локальную машину
-    port: 5672            # Порт для AMQP, который слушает RabbitMQ
-    username: guest        # Логин
-    password: guest        # Пароль
-
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: http://localhost:9000/oauth2/jwks
-  jpa:
-    hibernate:
-      ddl-auto: none
-  datasource:
-    url: jdbc:mysql://localhost/taco_cloud
-    driverClassName: com.mysql.cj.jdbc.Driver
-    username: root
-    password: Porfik 10
-  sql:
-    init:
-      mode: never
-  logging:
-    level:
-#      tacos: WARN
-      org.springframework.amqp: DEBUG
-      com.rabbitmq: DEBUG
-  data:
-    rest:
-      base-path: /data-api
-  server:
-    servlet:
-      context-path: /data-api
