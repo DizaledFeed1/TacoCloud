@@ -1,10 +1,7 @@
 package com.example.tacocloud.messaging;
 
 import com.example.tacocloud.TacoOrder;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +14,6 @@ public class RabbitOrderMessagingService
         this.rabbit = rabbit;
     }
     public void sendOrder(TacoOrder order) {
-        MessageConverter converter = rabbit.getMessageConverter();
-        MessageProperties props = new MessageProperties();
-        Message message = converter.toMessage(order, props);
-        rabbit.send("tacocloud.order", message);
+        rabbit.convertAndSend("tacocloud.order", order);
     }
 }

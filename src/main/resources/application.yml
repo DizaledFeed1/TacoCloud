@@ -1,9 +1,4 @@
 spring:
-  rabbitmq:
-    host: localhost        # Указание на локальную машину
-    port: 5672            # Порт для AMQP, который слушает RabbitMQ
-    username: guest        # Логин
-    password: guest        # Пароль
   profiles:
     active: prod
   h2:
@@ -38,12 +33,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-server:
-  port: 8080
-#  ssl:
-#    key-store: C:\Users\Dizaled/mykeys.jks
-#    key-store-password: Porfik 10
-#    key-password: Porfik 10
 
 logging:
   file:
@@ -88,7 +77,7 @@ spring:
     level:
 #      tacos: WARN
       org.springframework.amqp: DEBUG
-      org.springframework.jms: DEBUG
+      com.rabbitmq: DEBUG
   data:
     rest:
       base-path: /data-api
