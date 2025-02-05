@@ -44,13 +44,10 @@ spring:
     hibernate:
       ddl-auto: none
 
-  rabbitmq:
-    template:
-      receive-timeout: 30000
-    host: localhost
-    port: 5672
-#    username: guest
-#    password: guest
+  kafka:
+    bootstrap-servers:
+      - localhost:9092
+
   data:
     rest:
       base-path: /data-api

@@ -12,13 +12,16 @@ import org.springframework.web.bind.annotation.*;
 public class OrderApiController {
 
     private final OrderRepository repo;
-    private final OrderMessagingService messageService;
+//    private final OrderMessagingService messageService;
 
     // Конструктор для внедрения зависимостей
-    public OrderApiController(OrderRepository repo, OrderMessagingService messageService) {
+    public OrderApiController(OrderRepository repo) {
         this.repo = repo;
-        this.messageService = messageService;
     }
+//    public OrderApiController(OrderRepository repo, OrderMessagingService messageService) {
+//        this.repo = repo;
+//        this.messageService = messageService;
+//    }
     @GetMapping
     public Iterable<TacoOrder> getOrder() {
         return repo.findAll();
@@ -34,7 +37,7 @@ public class OrderApiController {
     @ResponseStatus(HttpStatus.CREATED) // Статус ответа 201 - Created
     public TacoOrder postOrder(@RequestBody TacoOrder order) {
         // Отправляем заказ через очередь сообщений
-        messageService.sendOrder(order);
+//        messageService.sendOrder(order);
         // Сохраняем заказ в репозитории
         return repo.save(order);
     }

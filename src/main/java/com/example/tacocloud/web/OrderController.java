@@ -26,14 +26,19 @@ public class OrderController {
     private OrderRepository orderRepo;
     private OrderProps props;
     private OrderListener orderListener;
-    private final OrderMessagingService orderMessagingService;
+//    private final OrderMessagingService orderMessagingService;
 
-    public OrderController(OrderRepository orderRepo, OrderProps props, OrderMessagingService orderMessagingService, OrderListener orderListener) {
+    public OrderController(OrderRepository orderRepo, OrderProps props, OrderListener orderListener) {
         this.orderRepo = orderRepo;
         this.props = props;
-        this.orderListener = orderListener;
+        this.orderListener = orderListener;}
 
-        this.orderMessagingService = orderMessagingService;}
+//    public OrderController(OrderRepository orderRepo, OrderProps props, OrderMessagingService orderMessagingService, OrderListener orderListener) {
+//        this.orderRepo = orderRepo;
+//        this.props = props;
+//        this.orderListener = orderListener;
+//
+//        this.orderMessagingService = orderMessagingService;}
 
     @GetMapping("/current")
     public String orderForm() {
@@ -71,7 +76,7 @@ public class OrderController {
 
     @PostMapping("/send")
     public ResponseEntity<?> sendOrder(@RequestBody TacoOrder order) {
-        orderMessagingService.sendOrder(order);
+//        orderMessagingService.sendOrder(order);
         orderListener.receiveOrder(order);
         return ResponseEntity.ok("Order sent");
     }
