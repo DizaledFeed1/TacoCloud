@@ -11,6 +11,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class TacoCloudApplication implements WebMvcConfigurer {
 
     public static void main(String[] args) {
+        System.setProperty("spring.amqp.deserialization.trust.all", "true");
+
         SpringApplication.run(TacoCloudApplication.class, args);
     }
 

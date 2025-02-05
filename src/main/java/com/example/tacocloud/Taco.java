@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.springframework.data.rest.core.annotation.RestResource;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,10 +15,11 @@ import java.util.List;
 @Data
 @Entity
 @RestResource(rel="tacos", path="tacos")
-public class Taco {
+public class Taco implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private static final long serialVersionUID = 1L;
 
     private Date createdAt = new Date();
 

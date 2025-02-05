@@ -6,11 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor(access=AccessLevel.PROTECTED, force=true)
-public class Ingredient {
+public class Ingredient implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;

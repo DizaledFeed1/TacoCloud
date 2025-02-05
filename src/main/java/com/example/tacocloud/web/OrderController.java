@@ -4,6 +4,7 @@ import com.example.tacocloud.Taco;
 import com.example.tacocloud.TacoOrder;
 import com.example.tacocloud.User;
 import com.example.tacocloud.data.OrderRepository;
+import com.example.tacocloud.kitchen.messaging.rabbit.listener.OrderListener;
 import com.example.tacocloud.messaging.OrderMessagingService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -24,11 +25,13 @@ import org.springframework.web.bind.support.SessionStatus;
 public class OrderController {
     private OrderRepository orderRepo;
     private OrderProps props;
+    private OrderListener orderListener;
     private final OrderMessagingService orderMessagingService;
 
-    public OrderController(OrderRepository orderRepo, OrderProps props, OrderMessagingService orderMessagingService) {
+    public OrderController(OrderRepository orderRepo, OrderProps props, OrderMessagingService orderMessagingService, OrderListener orderListener) {
         this.orderRepo = orderRepo;
         this.props = props;
+        this.orderListener = orderListener;
 
         this.orderMessagingService = orderMessagingService;}
 
@@ -69,6 +72,7 @@ public class OrderController {
     @PostMapping("/send")
     public ResponseEntity<?> sendOrder(@RequestBody TacoOrder order) {
         orderMessagingService.sendOrder(order);
+        orderListener.receiveOrder(order);
         return ResponseEntity.ok("Order sent");
     }
 }
