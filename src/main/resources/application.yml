@@ -2,10 +2,10 @@ spring:
   profiles:
     active: default
 
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2-console
 
   security:
     oauth2:
@@ -47,6 +47,10 @@ spring:
   kafka:
     bootstrap-servers:
       - localhost:9092
+    template:
+      default-topic: tacocloud.orders.topic
+      producer:
+        value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
   data:
     rest:

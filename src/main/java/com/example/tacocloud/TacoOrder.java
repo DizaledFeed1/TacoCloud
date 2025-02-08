@@ -1,6 +1,7 @@
 package com.example.tacocloud;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
@@ -17,6 +18,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name="Taco_Order")
+@JsonSerialize
 public class TacoOrder implements Serializable {
     private static final long serialVersionUID = 1L;
 

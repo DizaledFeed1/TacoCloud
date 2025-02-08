@@ -39,6 +39,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/orders/send").permitAll()
+                        .requestMatchers("/api/taco_order").permitAll()
                         .requestMatchers("/design").hasRole("USER") // Защищенные маршруты
                         .requestMatchers("/**", "/login", "/register", "/h2-console/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/ingredients").hasAuthority("SCOPE_writeIngredients") // Защита POST-запросов
@@ -53,6 +54,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers("/h2-console/**") // Исключить CSRF для H2-консоли
                         .ignoringRequestMatchers("/orders/send") // Отключить CSRF для пути /orders/send
+                        .ignoringRequestMatchers("/api/taco_order")
                 )
                 .headers(headers -> headers
                         .frameOptions(frameOptions -> frameOptions.sameOrigin()) // Разрешить использование фреймов только с того же источника
