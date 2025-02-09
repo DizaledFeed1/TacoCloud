@@ -45,12 +45,14 @@ spring:
       ddl-auto: none
 
   kafka:
-    bootstrap-servers:
-      - localhost:9092
-    template:
-      default-topic: tacocloud.orders.topic
-      producer:
-        value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  bootstrap-servers:
+    - localhost:9092
+  template:
+    default-topic: tacocloud.orders.topic
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+
 
   data:
     rest:

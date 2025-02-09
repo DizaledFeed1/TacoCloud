@@ -33,7 +33,6 @@ public class OrderController {
         this.orderRepo = orderRepo;
         this.props = props;
         this.orderListener = orderListener;
-
         this.orderMessagingService = orderMessagingService;}
 
     @GetMapping("/current")
@@ -71,9 +70,10 @@ public class OrderController {
     }
 
     @PostMapping("/send")
-    public ResponseEntity<?> sendOrder(@RequestBody TacoOrder order) {
+    public ResponseEntity<?> sendOrder(@RequestBody TacoOrder order, SessionStatus sessionStatus) {
         orderMessagingService.sendOrder(order);
-        orderListener.receiveOrder(order);
+//        orderListener.receiveOrder(order);
+        sessionStatus.setComplete();
         return ResponseEntity.ok("Order sent");
     }
 }

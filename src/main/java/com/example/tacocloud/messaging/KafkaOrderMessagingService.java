@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaOrderMessagingService
         implements OrderMessagingService {
+    @Autowired
     private KafkaTemplate<String, TacoOrder> kafkaTemplate;
     @Autowired
     public KafkaOrderMessagingService(
