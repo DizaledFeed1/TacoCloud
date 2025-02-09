@@ -12,18 +12,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderListener {
     private KitchenUI ui;
-//    private Logger log;
+    private Logger log;
 
     @Autowired
     public OrderListener(KitchenUI ui) {
         this.ui = ui;
     }
 
-    @KafkaListener(topics="tacocloud.orders.topic")
+    @KafkaListener(topics="tacocloud.orders.topic", groupId = "my-consumer-group")
     public void handle(
             TacoOrder order, ConsumerRecord<String, TacoOrder> record) {
-//        log.info("Received from partition {} with timestamp {}",
-//                record.partition(), record.timestamp());
+        log.info("Received from partition {} with timestamp {}",
+                record.partition(), record.timestamp());
         ui.displayOrder(order);
     }
 }

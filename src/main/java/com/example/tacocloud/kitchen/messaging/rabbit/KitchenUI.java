@@ -6,8 +6,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class KitchenUI {
-    int a;
-    String b;
     public void displayOrder(TacoOrder order) {
         System.out.println(order);
     }

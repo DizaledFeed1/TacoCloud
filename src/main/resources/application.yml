@@ -54,6 +54,7 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 
+
   data:
     rest:
       base-path: /data-api
